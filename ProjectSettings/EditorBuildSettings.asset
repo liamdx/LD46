@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/MainMenu_Rachel.unity
+    guid: 0918de0e50c063e4ab4d032ce2022c25
+  - enabled: 1
+    path: Assets/Scenes/TestScene.unity
+    guid: f890e0c9de75d6548abddd09668e3f29
   m_configObjects: {}
