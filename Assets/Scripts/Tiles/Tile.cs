@@ -16,10 +16,7 @@ public class Tile : MonoBehaviour
     private void Awake()
     {
         index = -1;
-    }
-    private void Start() {
-
-        foreach(Transform t in spawnContainer.transform)
+        foreach (Transform t in spawnContainer.transform)
         {
             spawns.Add(t);
         }
