@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
 
     public void Start()
     {
+        tileManager.gameManager = this;
+        pathGenerator.gameManager = this;
+        pathGenerator.tileManager = tileManager;
+
         tileManager.GenTiles(30);
         pathGenerator.GenPath();
     }
@@ -30,7 +34,6 @@ public class GameManager : MonoBehaviour
 
     void LinkGameManager()
     {
-        tileManager.gameManager = this;
-        pathGenerator.gameManager = this;
+        
     }
 }

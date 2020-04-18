@@ -26,10 +26,7 @@ public class TileManager : MonoBehaviour
         activeTiles = new List<Tile>();
     }
 
-    public void Start()
-    {
-        player = gameManager.player;
-    }
+ 
 
     [Button]
     public void Gen10Tiles()

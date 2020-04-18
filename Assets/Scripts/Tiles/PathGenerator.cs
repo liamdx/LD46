@@ -11,12 +11,9 @@ public class PathGenerator : MonoBehaviour
     public int numPathPoints;
 
     private PlayerScript player;
-    private TileManager tileManager;
-    public CinemachineSmoothPath path;
-    public CinemachineDollyCart cart;
+    public TileManager tileManager;
+    public Cart cart;
     public GameManager gameManager;
-
-    public Vector3 cartOffset;
 
     public float error;
 
@@ -32,18 +29,21 @@ public class PathGenerator : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-                
+        if(cart.positionIndex >= (int) cart.positions.Count * 0.75)
+        {
+            tileManager.GenTiles(10);
+            GenPath();
+        }
     }
 
     [Button]
     public void GenPath()
     {
-        path.m_Waypoints = new CinemachineSmoothPath.Waypoint[0];
+        // path.m_Waypoints = new CinemachineSmoothPath.Waypoint[0];
+        Vector3 currentPosition = cart.transform.position;
+        bool hasEmplaced = false;
         tileManager.GetPlayerTileIndex(player);
-        if(player.currentTileIndex > tileManager.highestActiveTile)
-        {
-            tileManager.GenTiles(20);
-        }
+        
         
         Debug.Log("Calling Gen Path");
         List<Vector3> eligiblePositions = new List<Vector3>();
@@ -58,9 +58,18 @@ public class PathGenerator : MonoBehaviour
                 continue;
             }
 
-            eligiblePositions.Add(t.begin.position);
-            eligiblePositions.Add(t.end.position);
+            if(!hasEmplaced)
+            {
+                eligiblePositions.Add(t.end.position);
+                hasEmplaced = true;
+            }
+            else
+            {
+                eligiblePositions.Add(t.begin.position);
+                eligiblePositions.Add(t.end.position);
+            }
 
+            
             if(eligiblePositions.Count >= numPathPoints)
             {
                 break;
@@ -69,14 +78,11 @@ public class PathGenerator : MonoBehaviour
         }
 
         List<Vector3> uniques = ClearDuplicates(eligiblePositions);
-        path.m_Waypoints = new CinemachineSmoothPath.Waypoint[uniques.Count];
 
-        for (int i = 0; i < uniques.Count; i++)
-        {
-            path.m_Waypoints[i].position = uniques[i] + cartOffset;
-            path.m_Waypoints[i].roll = 0.0f;
-        }
-        path.runInEditMode = true;
+        // path.m_Waypoints = new CinemachineSmoothPath.Waypoint[uniques.Count];
+
+        cart.ResetTrack(uniques);
+        
         eligiblePositions.Clear();
         uniques.Clear();
 
