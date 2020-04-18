@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
         LinkGameManager();
     }
 
+    public void Start()
+    {
+        tileManager.GenTiles(30);
+        pathGenerator.GenPath();
+    }
+
     // Update is called once per frame
     void Update()
     {

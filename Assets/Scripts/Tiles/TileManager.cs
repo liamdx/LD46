@@ -16,31 +16,34 @@ public class TileManager : MonoBehaviour
     public List<Tile> activeTiles;
 
     int tileIndex = 1;
-    int highestActiveTile = -1;
+   public  int highestActiveTile = -1;
+    private Vector3 initialPosition;
 
 
-    private void Awake() {
+    public void Awake() {
+        initialPosition = transform.position;
         pooler = GetComponent<Pooler>();
         activeTiles = new List<Tile>();
     }
 
-    private void Start()
+    public void Start()
     {
         player = gameManager.player;
     }
 
     [Button]
-    private void Gen10Tiles()
+    public void Gen10Tiles()
     {
         GenTiles(10);
     }
 
-    private void GenTiles(int numToGen)
+  
+    public void GenTiles(int numToGen)
     {
 
         for (int i = 0; i < numToGen; i++)
         {
-            Vector3 spawnPosition = Vector3.zero;
+            Vector3 spawnPosition = initialPosition;
             // do rotation stuff here if necessary
 
             if (lastSpawnedTile != null)
@@ -102,9 +105,11 @@ public class TileManager : MonoBehaviour
         }
     }
 
-    void GetPlayerTileIndex(PlayerScript ps)
+    public void GetPlayerTileIndex(PlayerScript ps)
     {
         Vector3 psPosition = ps.gameObject.transform.position;
+
+        Debug.Log("Player Position : " + psPosition);
 
         float bestDistance = 100000.0f;
         int index = -1;
