@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class Ramp : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public Vector3 offset;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.CompareTag("Player"))
+        {
+            PlayerScript player = other.gameObject.GetComponent<PlayerScript>();
+            player.OnRamp();
+        }
     }
 }

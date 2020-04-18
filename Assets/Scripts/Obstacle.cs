@@ -6,6 +6,7 @@ public class Obstacle : MonoBehaviour
 {
 
     public ParticleSystem explosionEffect;
+    public Vector3 offset;
 
     public void DoDestroy()
     {

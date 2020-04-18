@@ -5,6 +5,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerScript : MonoBehaviour
 {
+
+    public Vector3 gravity;
+    public Vector3 rampVelocity;
+
     public int currentTileIndex;
     public GameManager gameManager;
     public Shotgun shotgun;
@@ -19,8 +23,13 @@ public class PlayerScript : MonoBehaviour
     public float lookSensitivity;
     public float horizontalSpeed = 10.0f;
 
+    // ramp shit
+    private bool inAir;
+    private Vector3 velocity;
+
     private void Start()
     {
+        inAir = false;
         cart = GetComponentInParent<Cart>();
         cam = cameraObject.GetComponent<Camera>();
     }
@@ -30,6 +39,11 @@ public class PlayerScript : MonoBehaviour
         // camera
         CameraLook();
         Movement();
+
+        if(inAir)
+        {
+            Air();
+        }
 
     }
 
@@ -65,6 +79,17 @@ public class PlayerScript : MonoBehaviour
         cameraObject.transform.eulerAngles = cameraAngles;
     }
 
+    void Air()
+    {
+        transform.localPosition += (velocity * Time.deltaTime);
+        velocity += gravity * Time.deltaTime;
+
+        if(transform.localPosition.y <= 0.0f)
+        {
+            inAir = false;
+        }
+    }
+
     public void OnMove(InputValue value)
     {
         leftStick = value.Get<Vector2>();    
@@ -84,5 +109,13 @@ public class PlayerScript : MonoBehaviour
     {
         shotgun.Shoot();
         kickback.DoKickback();
+    }
+
+    public void OnRamp()
+    {
+        velocity = Vector3.zero;
+        Debug.Log("Starting Ramp, Y Height : " + transform.localPosition.y);
+        velocity += rampVelocity;
+        inAir = true;
     }
 }

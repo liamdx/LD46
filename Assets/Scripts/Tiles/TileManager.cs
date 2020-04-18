@@ -14,6 +14,7 @@ public class TileManager : MonoBehaviour
     // pooler stuff
     public List<string> tileTags;
     public List<string> obstacleTags;
+    public List<string> rampTags;
     public List<Tile> activeTiles;
 
     int tileIndex = 1;
@@ -53,6 +54,7 @@ public class TileManager : MonoBehaviour
             tile.SetActive(true);
             lastSpawnedTile = tile.GetComponent<Tile>();
             SpawnObstacles(lastSpawnedTile);
+            SpawnRamps(lastSpawnedTile);
             
             if (InActiveTiles(lastSpawnedTile))
             {
@@ -73,13 +75,35 @@ public class TileManager : MonoBehaviour
         for (int i = 0; i < t.spawns.Count; i++) 
         {
             float chance = Random.Range(0.0f, 1.0f);
-            if(chance > 0.5f)
+            if(chance > 0.66f)
             {
                 Transform trans = t.spawns[i];
                 int randomIndex = (int)Random.Range(0, obstacleTags.Count);
                 GameObject go = pooler.SpawnFromPool(obstacleTags[randomIndex], trans.position, trans.rotation);
+
+                Obstacle obstacle = go.GetComponent<Obstacle>();
                 go.SetActive(true);
-                go.transform.position = trans.position;
+                go.transform.position = trans.position + obstacle.offset;
+
+            }
+        }
+    }
+
+    private void SpawnRamps(Tile t)
+    {
+        for (int i = 0; i < t.spawns.Count; i++)
+        {
+            float chance = Random.Range(0.0f, 1.0f);
+            if (chance > 0.75f)
+            {
+                Transform trans = t.spawns[i];
+                int randomIndex = (int)Random.Range(0, rampTags.Count);
+                GameObject go = pooler.SpawnFromPool(rampTags[randomIndex], trans.position, trans.rotation);
+
+                Ramp ramp = go.GetComponent<Ramp>();
+                go.SetActive(true);
+                go.transform.position = trans.position + ramp.offset;
+                break;
 
             }
         }

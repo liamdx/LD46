@@ -13,7 +13,7 @@ public class KickbackEffect : MonoBehaviour
     }
 
     private WeaponSway ws;
-
+    private Shotgun shotgun;
     public List<kickBackEffect> slotEffects = new List<kickBackEffect>();
     public float amount = 3.0f;
     public float speed = 1.0f;
@@ -27,6 +27,7 @@ public class KickbackEffect : MonoBehaviour
     {
         initPosition = transform.localPosition;
         ws = GetComponent<WeaponSway>();
+        shotgun = GetComponent<Shotgun>();
     }
 
 
@@ -49,9 +50,12 @@ public class KickbackEffect : MonoBehaviour
 
     public void DoKickback()
     {
-        initPosition = transform.localPosition;
-        currentPosition = initPosition - new Vector3(0, 0, amount);
-        counter = 0.0f;
-        ws.enabled = false;
+        if (shotgun.canShoot)
+        {
+            initPosition = transform.localPosition;
+            currentPosition = initPosition - new Vector3(0, 0, amount);
+            counter = 0.0f;
+            ws.enabled = false;
+        }
     }
 }

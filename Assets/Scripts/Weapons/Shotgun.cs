@@ -21,10 +21,15 @@ public class Shotgun : MonoBehaviour
     private float internalSpaceBetweenShots = 0.0f;
     private float internalReloadTime = 0.0f;
 
-    private bool canShoot = false;
+    public bool canShoot = true;
+
 
     public void LateUpdate()
     {
+        if(currentAmmo <= 0)
+        {
+            Reload();
+        }
         if(internalReloadTime > 0.0f)
         {
             internalReloadTime -= Time.deltaTime;
@@ -34,12 +39,21 @@ public class Shotgun : MonoBehaviour
         {
             internalSpaceBetweenShots -= Time.deltaTime;   
         }
+
+        if(internalReloadTime <= 0.0f && internalSpaceBetweenShots <= 0.0f)
+        {
+            canShoot = true;
+        }
+        else
+        {
+            canShoot = false;
+        }
     }
     public void Shoot()
     {
         if (canShoot)
         {
-
+            Debug.Log("Shooting");
             shotEffect.Play();
             // bulletEffect.Play();
 
@@ -64,8 +78,16 @@ public class Shotgun : MonoBehaviour
                     // do enemy
                 }
             }
+            currentAmmo -= 1;
+            internalSpaceBetweenShots = spaceBetweenShots;
         }
 
+    }
+
+    public void Reload()
+    {
+        currentAmmo = 2;
+        internalReloadTime = reloadTime;
     }
 
 }
