@@ -12,7 +12,8 @@ public class TileManager : MonoBehaviour
     private Tile lastSpawnedTile = null;
 
     // pooler stuff
-    private List<string> tileTags;
+    public List<string> tileTags;
+    public List<string> obstacleTags;
     public List<Tile> activeTiles;
 
     int tileIndex = 1;
@@ -51,6 +52,7 @@ public class TileManager : MonoBehaviour
             GameObject tile = pooler.SpawnFromPool("debug", spawnPosition, Quaternion.Euler(45, 0, 0));
             tile.SetActive(true);
             lastSpawnedTile = tile.GetComponent<Tile>();
+            SpawnObstacles(lastSpawnedTile);
             
             if (InActiveTiles(lastSpawnedTile))
             {
@@ -66,6 +68,22 @@ public class TileManager : MonoBehaviour
         }
     }
 
+    private void SpawnObstacles(Tile t)
+    {
+        for (int i = 0; i < t.spawns.Count; i++) 
+        {
+            float chance = Random.Range(0.0f, 1.0f);
+            if(chance > 0.5f)
+            {
+                Transform trans = t.spawns[i];
+                int randomIndex = (int)Random.Range(0, obstacleTags.Count);
+                GameObject go = pooler.SpawnFromPool(obstacleTags[randomIndex], trans.position, trans.rotation);
+                go.SetActive(true);
+                go.transform.position = trans.position;
+
+            }
+        }
+    }
 
     bool InActiveTiles(Tile tile)
     {
