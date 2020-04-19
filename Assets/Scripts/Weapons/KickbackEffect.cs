@@ -40,6 +40,8 @@ public class KickbackEffect : MonoBehaviour
         if (counter <= 1.0f)
         {
             currentPosition = Vector3.Lerp(currentPosition, initPosition, counter);
+            float mag = (currentPosition - initPosition).magnitude;
+            if(mag < 0.5f) { counter = 20.0f; }
             transform.localPosition = currentPosition;
         }
         else

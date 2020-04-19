@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249ad722bf4cbb44b81dfe3bebc225f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -10.21, y: 1, z: 0}
+  offset: {x: -25, y: 1, z: 0}
 --- !u!135 &4056454326936144036
 SphereCollider:
   m_ObjectHideFlags: 0

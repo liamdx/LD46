@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -57,10 +58,15 @@ public class Shotgun : MonoBehaviour
             shotEffect.Play();
             // bulletEffect.Play();
 
-            RaycastHit hit;
+            Vector3 p1 = player.cameraObject.transform.position;
+            Vector3 p2 = p1 + player.cameraObject.transform.up;
+            //if (Physics.Raycast(player.cameraObject.transform.position, player.cameraObject.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+            // Vector3 origin, float radius, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask
+            RaycastHit[] hits = Physics.SphereCastAll(p1, 3.0f, player.cameraObject.transform.forward, 100000);
 
-            if (Physics.Raycast(player.cameraObject.transform.position, player.cameraObject.transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity))
+            foreach (RaycastHit hit in hits)
             {
+
                 if (hit.collider.gameObject.CompareTag("Obstacle"))
                 {
                     // do obstacle
@@ -71,17 +77,24 @@ public class Shotgun : MonoBehaviour
                     {
                         o.DoDestroy();
                     }
+
+                    break;
                 }
 
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     // do enemy
+                    Enemy e = hit.collider.gameObject.GetComponent<Enemy>();
+                    if (e != null)
+                    {
+                        e.Hurt(60);
+                    }
+                    break;
                 }
             }
             currentAmmo -= 1;
             internalSpaceBetweenShots = spaceBetweenShots;
         }
-
     }
 
     public void Reload()

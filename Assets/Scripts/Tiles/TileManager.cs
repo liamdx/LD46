@@ -5,8 +5,9 @@ using EasyButtons;
 public class TileManager : MonoBehaviour
 {
     public GameManager gameManager;
-    private PlayerScript player;
+    public PlayerScript player;
     private Pooler pooler;
+    public EnemyManager enemyManager;
 
     // doesnt exist until we spawn first wave of tiles
     private Tile lastSpawnedTile = null;
@@ -26,9 +27,15 @@ public class TileManager : MonoBehaviour
         initialPosition = transform.position;
         pooler = GetComponent<Pooler>();
         activeTiles = new List<Tile>();
+        enemyManager = null;
     }
 
- 
+    public void Start()
+    {
+        player = gameManager.player;
+        
+    }
+
 
     [Button]
     public void Gen10Tiles()
@@ -36,9 +43,18 @@ public class TileManager : MonoBehaviour
         GenTiles(10);
     }
 
-  
+    private void LateUpdate()
+    {
+        GetPlayerTileIndex(player);
+    }
+
+
     public void GenTiles(int numToGen)
     {
+        if(enemyManager == null)
+        {
+            enemyManager = GetComponent<EnemyManager>();
+        }
 
         for (int i = 0; i < numToGen; i++)
         {
@@ -47,10 +63,12 @@ public class TileManager : MonoBehaviour
 
             if (lastSpawnedTile != null)
             {
-                spawnPosition = lastSpawnedTile.end.position;
+                spawnPosition = lastSpawnedTile.end.position; 
             }
 
-            GameObject tile = pooler.SpawnFromPool("debug", spawnPosition, Quaternion.Euler(45, 0, 0));
+            int randomIndex = (int)Random.Range(0, tileTags.Count);
+
+            GameObject tile = pooler.SpawnFromPool(tileTags[randomIndex], spawnPosition, Quaternion.Euler(45, 0, 0));
             tile.SetActive(true);
             lastSpawnedTile = tile.GetComponent<Tile>();
             SpawnObstacles(lastSpawnedTile);
@@ -68,6 +86,7 @@ public class TileManager : MonoBehaviour
             tile.transform.eulerAngles = lastSpawnedTile.gameObject.transform.eulerAngles;
             activeTiles.Add(lastSpawnedTile);
         }
+        enemyManager.SpawnEnemies(5);
     }
 
     private void SpawnObstacles(Tile t)
@@ -148,8 +167,6 @@ public class TileManager : MonoBehaviour
     {
         Vector3 psPosition = ps.gameObject.transform.position;
 
-        Debug.Log("Player Position : " + psPosition);
-
         float bestDistance = 100000.0f;
         int index = -1;
 
@@ -168,6 +185,28 @@ public class TileManager : MonoBehaviour
             ps.currentTileIndex = index;
         }
     }
+
+    public Vector3 GetRandomPointInFrontOfPlayer()
+    {
+        int index = player.currentTileIndex + 1;
+
+        
+
+        foreach(Tile tile in activeTiles)
+        {
+            if (tile.index == index)
+            {
+                Tile t = tile;
+                int randomIndex = (int)Random.Range(0, t.spawns.Count);
+                return t.spawns[randomIndex].position;
+
+            }
+        }
+
+        return Vector3.zero;
+        
+    }
+
 
 
 

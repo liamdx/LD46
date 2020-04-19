@@ -14,11 +14,22 @@ public class Obstacle : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
             // player do damage
+            PlayerScript ps = other.gameObject.GetComponent<PlayerScript>();
+            ps.Hurt(5);
+            DoDestroy();
+
+        }
+
+        if(other.CompareTag("Enemy"))
+        {
+            Enemy e = other.gameObject.GetComponent<Enemy>();
+            e.Hurt(5);
+            DoDestroy();
         }
     }
 

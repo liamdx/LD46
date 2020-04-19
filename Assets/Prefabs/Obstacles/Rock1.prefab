@@ -89,7 +89,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7808702439139172792}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4.33
@@ -108,4 +108,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   explosionEffect: {fileID: 4151149038294141713, guid: 860bfd72f9f317b46b0be1f60c23b096,
     type: 3}
-  offset: {x: 0, y: 2.76, z: 0}
+  offset: {x: -25, y: 2.76, z: 0}

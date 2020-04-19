@@ -9,11 +9,15 @@ public class GameManager : MonoBehaviour
     public TileManager tileManager;
     public PathGenerator pathGenerator;
     public PlayerScript player;
+    public EnemyManager enemyManager;
+    public UIManager uiManager;
     void Awake()
     {
         pathGenerator = GetComponent<PathGenerator>();
         tileManager = GetComponent<TileManager>();
-        LinkGameManager();
+        enemyManager = GetComponent<EnemyManager>();
+        uiManager = GetComponent<UIManager>();
+
     }
 
     public void Start()
@@ -26,14 +30,9 @@ public class GameManager : MonoBehaviour
         pathGenerator.GenPath();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GameOver()
     {
-        
+        Debug.Log("Game Over");
     }
 
-    void LinkGameManager()
-    {
-        
-    }
 }
