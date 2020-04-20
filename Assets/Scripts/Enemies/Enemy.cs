@@ -7,7 +7,7 @@ public abstract class Enemy : MonoBehaviour
     public Vector3 offset;
     public float barrierLimit;
 
-    private HealthSystem health;
+    public HealthSystem health;
 
     public float speed;
     public int damage;
@@ -44,10 +44,7 @@ public abstract class Enemy : MonoBehaviour
 
     public abstract void Death();
 
-    public void Hurt(int amount)
-    {
-        health.health -= amount;
-    }
+    
 
     public void DistanceFromAllies()
     {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{9d2c5ed1-2f0b-4631-b3d0-df8677360867}">
+		<property name="assetPath">
+			<value>Lou Surfer - Main Theme.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>228.09396825396826</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d847a6d1-0419-4480-b796-6690dd13d533}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
     public Transform begin;
     public Transform end;
     public Vector3 offset;
+    // x minimum y maximum
+    public Vector2 limits;
 
     public GameObject spawnContainer;
 

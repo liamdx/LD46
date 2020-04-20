@@ -757,6 +757,7 @@ MonoBehaviour:
   begin: {fileID: 9024596315620731257}
   end: {fileID: 9024596314662073608}
   offset: {x: -20.5, y: -1.675, z: 1.675}
+  limits: {x: -9, y: 7}
   spawnContainer: {fileID: 9024596314318240265}
   spawns: []
   index: 0

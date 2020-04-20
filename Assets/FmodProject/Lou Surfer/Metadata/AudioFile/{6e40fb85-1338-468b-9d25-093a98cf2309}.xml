@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{6e40fb85-1338-468b-9d25-093a98cf2309}">
+		<property name="assetPath">
+			<value>Lou Surfer - Game Over.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.0939682539682538</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d847a6d1-0419-4480-b796-6690dd13d533}</destination>
+		</relationship>
+	</object>
+</objects>

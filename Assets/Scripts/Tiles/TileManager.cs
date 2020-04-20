@@ -46,6 +46,11 @@ public class TileManager : MonoBehaviour
     private void LateUpdate()
     {
         GetPlayerTileIndex(player);
+        while (player.currentTileIndex > (int)highestActiveTile * 0.75)
+        {
+            GenTiles(1);
+        }
+
     }
 
 
@@ -86,7 +91,6 @@ public class TileManager : MonoBehaviour
             tile.transform.eulerAngles = lastSpawnedTile.gameObject.transform.eulerAngles;
             activeTiles.Add(lastSpawnedTile);
         }
-        enemyManager.SpawnEnemies(5);
     }
 
     private void SpawnObstacles(Tile t)
@@ -188,7 +192,7 @@ public class TileManager : MonoBehaviour
 
     public Vector3 GetRandomPointInFrontOfPlayer()
     {
-        int index = player.currentTileIndex + 1;
+        int index = player.currentTileIndex;
 
         
 
@@ -207,6 +211,18 @@ public class TileManager : MonoBehaviour
         
     }
 
+    public Tile GetTile(int index)
+    {
+        foreach(Tile t in activeTiles)
+        {
+            if(t.index == index)
+            {
+                return t;
+            }
+        }
+
+        return null;
+    }
 
 
 

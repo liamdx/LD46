@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="AudioFile" id="{5436ff3f-091f-464d-8df2-b5a0b4f6227c}">
+		<property name="assetPath">
+			<value>MENU FINAL MIX LOU SURFER.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>181.97802721088436</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d847a6d1-0419-4480-b796-6690dd13d533}</destination>
+		</relationship>
+	</object>
+</objects>

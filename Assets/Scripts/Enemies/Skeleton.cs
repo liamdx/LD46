@@ -15,6 +15,14 @@ public class Skeleton : Enemy
 
     public float attackDistance = 3.0f;
 
+    [FMODUnity.EventRef]
+    public string HurtEvent = "";
+    [FMODUnity.EventRef]
+    public string DeathEvent = "";
+
+    FMOD.Studio.EventInstance hurtInstance;
+    FMOD.Studio.EventInstance deathInstance;
+
     Vector3 targetPoint;
 
     private void Start()
@@ -22,6 +30,9 @@ public class Skeleton : Enemy
         boardSway = GetComponentInChildren<SurfSway>();
         randomDirection = GenRandomDirection();
         anim = GetComponentInChildren<Animator>();
+
+        hurtInstance = FMODUnity.RuntimeManager.CreateInstance(HurtEvent);
+        deathInstance = FMODUnity.RuntimeManager.CreateInstance(DeathEvent);
     }
 
     public void Update()
@@ -48,6 +59,7 @@ public class Skeleton : Enemy
     {
         isDead = true;
         // do something
+        deathInstance.start();
         Debug.Log("Skeleton Died");
         this.gameObject.SetActive(false);
         player.score.KillSkeleton();
@@ -64,6 +76,11 @@ public class Skeleton : Enemy
         return dir;
     }
 
+    public void Hurt(int amount)
+    {
+        hurtInstance.start();
+        health.health -= amount;
+    }
 
     public void StopAttack()
     {

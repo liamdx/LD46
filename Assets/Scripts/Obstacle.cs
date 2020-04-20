@@ -7,9 +7,19 @@ public class Obstacle : MonoBehaviour
 
     public ParticleSystem explosionEffect;
     public Vector3 offset;
+    [FMODUnity.EventRef]
+    public string HitEvent = "";
+
+    FMOD.Studio.EventInstance hitInstance;
+
+    private void Awake()
+    {
+        hitInstance = FMODUnity.RuntimeManager.CreateInstance(HitEvent);
+    }
 
     public void DoDestroy()
     {
+        hitInstance.start();
         explosionEffect.Play();
         this.gameObject.SetActive(false);
     }
@@ -23,13 +33,6 @@ public class Obstacle : MonoBehaviour
             ps.Hurt(5);
             DoDestroy();
 
-        }
-
-        if(other.CompareTag("Enemy"))
-        {
-            Enemy e = other.gameObject.GetComponent<Enemy>();
-            e.Hurt(5);
-            DoDestroy();
         }
     }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
 
@@ -18,6 +19,12 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI ammoText;
 
+    public GameObject gameOverPanel;
+
+    public void Die()
+    {
+        gameOverPanel.SetActive(true);
+    }
 
     private bool activeLastFrame = false;
     public void LateUpdate()

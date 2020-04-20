@@ -11,7 +11,9 @@ public class PlayerScript : MonoBehaviour
 
     public int currentTileIndex;
     public GameManager gameManager;
+    public TileManager tileManager;
     public Shotgun shotgun;
+    public Scythe scythe;
     public KickbackEffect kickback;
     public GameObject cameraObject;
     private Camera cam;
@@ -25,17 +27,15 @@ public class PlayerScript : MonoBehaviour
     public ScoreSystem score;
 
     public float offsetLimit = 15;
-
-    public float leftOffsetLimit = 15;
-    public float rightOffsetLimit = 15;
     Vector2 leftStick;
     Vector2 rightStick;
     public float lookSensitivity;
     public float horizontalSpeed = 10.0f;
+    public float verticalSpeed = 5.0f;
 
     // ramp shit
     public bool inAir;
-
+    public float speedMag;
     private bool dead;
 
     private Vector3 velocity;
@@ -43,6 +43,20 @@ public class PlayerScript : MonoBehaviour
 
 
     private float scoreCounter;
+
+
+    [FMODUnity.EventRef]
+    public string HurtEvent = "";
+
+    [FMODUnity.EventRef]
+    public string SurfEvent = "";
+
+    FMOD.Studio.EventInstance hurtInstance;
+    FMOD.Studio.EventInstance surfInstance;
+
+
+    private Vector3 speed;
+    private Vector3 lastPosition;
 
     private void Start()
     {
@@ -53,6 +67,9 @@ public class PlayerScript : MonoBehaviour
         cart = GetComponentInParent<Cart>();
         cam = cameraObject.GetComponent<Camera>();
         dead = false;
+        hurtInstance = FMODUnity.RuntimeManager.CreateInstance(HurtEvent);
+        surfInstance = FMODUnity.RuntimeManager.CreateInstance(SurfEvent);
+        surfInstance.start();
     }
 
     public void Update()
@@ -88,6 +105,8 @@ public class PlayerScript : MonoBehaviour
 
     public void Death()
     {
+        dead = true;
+        surfInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
 
     }
 
@@ -107,7 +126,11 @@ public class PlayerScript : MonoBehaviour
 
         Vector3 camRight = cam.transform.right;
         camRight = camRight * leftStick.x * Time.deltaTime * horizontalSpeed;
-        currentPosition += new Vector3(camRight.x, 0, 0);
+        Vector3 camForward = cam.transform.forward;
+        camForward = camForward * leftStick.y * Time.deltaTime * verticalSpeed ;
+        currentPosition += new Vector3(camRight.x, 0, camForward.z);
+
+        Tile t = tileManager.GetTile(currentTileIndex);
 
         if (Mathf.Abs(currentPosition.x) > offsetLimit)
         {
@@ -122,6 +145,12 @@ public class PlayerScript : MonoBehaviour
 
         }
         transform.localPosition = currentPosition;
+
+        speed = transform.position - lastPosition;
+        speedMag = speed.magnitude;
+
+
+        lastPosition = transform.position;
     }
 
     void CameraLook()
@@ -184,6 +213,11 @@ public class PlayerScript : MonoBehaviour
         kickback.DoKickback();
     }
 
+    public void OnMelee()
+    {
+        scythe.Shoot();
+    }
+
     public void OnRamp()
     {
         velocity = Vector3.zero;
@@ -194,6 +228,7 @@ public class PlayerScript : MonoBehaviour
 
     public void Hurt(int amount)
     {
+        hurtInstance.start();
         health.DoDamage(amount);
     }    
 }

@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
 
     public List<Enemy> activeEnemies;
 
-    public float spawnFrequency = 10.0f;
+    public float spawnFrequency = 20.0f;
 
     private float internalCounter = 0.0f;
 
@@ -24,6 +24,8 @@ public class EnemyManager : MonoBehaviour
         pooler = GetComponent<Pooler>();
         tileManager = GetComponent<TileManager>();
         activeEnemies = new List<Enemy>();
+        internalCounter = 0.0f;
+        spawnFrequency = 20.0f;
     }
     private void LateUpdate()
     {
@@ -31,6 +33,7 @@ public class EnemyManager : MonoBehaviour
         {
             SpawnEnemies(5);
             internalCounter = 0.0f;
+            spawnFrequency = 10.0f;
         }
         else
         {

@@ -726,8 +726,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0439409e155a7ff42802ec362e878091, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offset: {x: -5, y: -7, z: 0}
+  offset: {x: -5, y: 0, z: 0}
   barrierLimit: 15
+  health: {fileID: 0}
   speed: 10
   damage: 1
   player: {fileID: 0}
@@ -737,6 +738,8 @@ MonoBehaviour:
   skeletonObject: {fileID: 3904409455703161230}
   anim: {fileID: 0}
   attackDistance: 3
+  HurtEvent: event:/ShotgunHitSkele
+  DeathEvent: event:/SkeleDie
 --- !u!136 &2835826855292170601
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -747,8 +750,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.7
-  m_Height: 3.2
+  m_Radius: 1.66
+  m_Height: 4.16
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!54 &-738249709340774252

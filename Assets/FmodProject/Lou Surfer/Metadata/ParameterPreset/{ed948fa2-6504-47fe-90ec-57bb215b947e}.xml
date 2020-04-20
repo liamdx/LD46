@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.00.00">
+	<object class="ParameterPreset" id="{ed948fa2-6504-47fe-90ec-57bb215b947e}">
+		<property name="name">
+			<value>Snow.Hell</value>
+		</property>
+		<relationship name="folder">
+			<destination>{45a69be3-7db9-4ca0-b43c-9769ad7fd0d7}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{67175c17-9d99-45b6-8868-c517c4fc60e6}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{67175c17-9d99-45b6-8868-c517c4fc60e6}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

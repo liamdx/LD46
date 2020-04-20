@@ -24,6 +24,20 @@ public class Shotgun : MonoBehaviour
 
     public bool canShoot = true;
 
+    [FMODUnity.EventRef]
+    public string ShootEvent = "";
+    [FMODUnity.EventRef]
+    public string ReloadEvent = "";
+
+    FMOD.Studio.EventInstance shootInstance;
+    FMOD.Studio.EventInstance reloadInstance;
+
+
+    private void Start()
+    {
+        shootInstance = FMODUnity.RuntimeManager.CreateInstance(ShootEvent);
+        reloadInstance = FMODUnity.RuntimeManager.CreateInstance(ReloadEvent);
+    }
 
     public void LateUpdate()
     {
@@ -54,6 +68,10 @@ public class Shotgun : MonoBehaviour
     {
         if (canShoot)
         {
+
+            
+            shootInstance.start();
+
             Debug.Log("Shooting");
             shotEffect.Play();
             // bulletEffect.Play();
@@ -78,18 +96,18 @@ public class Shotgun : MonoBehaviour
                         o.DoDestroy();
                     }
 
-                    break;
+                    
                 }
 
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
                     // do enemy
-                    Enemy e = hit.collider.gameObject.GetComponent<Enemy>();
+                    Skeleton e = hit.collider.gameObject.GetComponent<Skeleton>();
                     if (e != null)
                     {
                         e.Hurt(60);
                     }
-                    break;
+                    
                 }
             }
             currentAmmo -= 1;
@@ -99,6 +117,8 @@ public class Shotgun : MonoBehaviour
 
     public void Reload()
     {
+        
+        reloadInstance.start();
         currentAmmo = 2;
         internalReloadTime = reloadTime;
     }
