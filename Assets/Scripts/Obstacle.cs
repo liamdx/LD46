@@ -19,7 +19,7 @@ public class Obstacle : MonoBehaviour
 
     public void DoDestroy()
     {
-        hitInstance.start();
+        explosionEffect.gameObject.transform.parent = null;
         explosionEffect.Play();
         this.gameObject.SetActive(false);
     }
@@ -29,8 +29,18 @@ public class Obstacle : MonoBehaviour
         if(other.CompareTag("Player"))
         {
             // player do damage
+            hitInstance.start();
             PlayerScript ps = other.gameObject.GetComponent<PlayerScript>();
             ps.Hurt(5);
+            DoDestroy();
+
+        }
+
+        if (other.CompareTag("Enemy"))
+        {
+            // player do damage
+            Skeleton ps = other.gameObject.GetComponent<Skeleton>();
+            ps.HurtNoSound(5);
             DoDestroy();
 
         }

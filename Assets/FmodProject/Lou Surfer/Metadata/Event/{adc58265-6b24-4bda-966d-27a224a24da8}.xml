@@ -113,7 +113,7 @@
 	</object>
 	<object class="EventMixerMaster" id="{aca52a27-3ff6-4faf-ad96-2b75cb23a8f1}">
 		<property name="volume">
-			<value>-3</value>
+			<value>-4</value>
 		</property>
 		<relationship name="effectChain">
 			<destination>{be5ccfde-a0a9-4e8c-b484-b00d5051bc73}</destination>
@@ -204,6 +204,9 @@
 		</property>
 		<property name="timelockedOffset">
 			<value>0.019192957861853009</value>
+		</property>
+		<property name="pitch">
+			<value>-6</value>
 		</property>
 		<relationship name="modulators">
 			<destination>{31690ed7-3cab-40ff-b74e-6c6eddc6a66d}</destination>
@@ -297,6 +300,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{be5ccfde-a0a9-4e8c-b484-b00d5051bc73}">
 		<relationship name="effects">
+			<destination>{3c5e225c-f554-430b-bd3d-71b1359b1064}</destination>
 			<destination>{b716dfd4-3b23-46b5-b0f1-c4f6a5313d53}</destination>
 		</relationship>
 	</object>
@@ -372,6 +376,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{f1020844-e980-412c-b463-def395f45661}">
 		<relationship name="effects">
+			<destination>{4931571b-3a9f-4394-b14a-6c42639d4e16}</destination>
 			<destination>{03f820a7-1377-4bdc-8073-273ad7207b36}</destination>
 		</relationship>
 	</object>
@@ -404,6 +409,17 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{891fd16d-3caf-485a-8a7d-b8be402c9636}" />
+	<object class="CompressorEffect" id="{3c5e225c-f554-430b-bd3d-71b1359b1064}">
+		<property name="threshold">
+			<value>-47</value>
+		</property>
+		<property name="ratio">
+			<value>1.69999993</value>
+		</property>
+		<property name="gain">
+			<value>20</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{b716dfd4-3b23-46b5-b0f1-c4f6a5313d53}" />
 	<object class="AutomationPoint" id="{d1406a41-d80b-441d-88fa-b81f33fce782}">
 		<property name="position">
@@ -426,6 +442,14 @@
 	</object>
 	<object class="MixerBusFader" id="{b6f214a1-b36b-4635-bfab-42d4150ee40f}" />
 	<object class="MixerBusFader" id="{5c44e278-3b8b-4d45-a659-768ea74b7638}" />
+	<object class="FlangerEffect" id="{4931571b-3a9f-4394-b14a-6c42639d4e16}">
+		<property name="delay">
+			<value>0.162</value>
+		</property>
+		<property name="mix">
+			<value>26</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{03f820a7-1377-4bdc-8073-273ad7207b36}" />
 	<object class="MixerBusFader" id="{dec4c145-a365-4f2e-b70c-9b3f8a37b97d}" />
 	<object class="MixerBusFader" id="{a8ed5544-928f-44b3-974d-81ace50e2693}" />

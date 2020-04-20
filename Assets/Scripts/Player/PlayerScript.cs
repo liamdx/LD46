@@ -51,24 +51,33 @@ public class PlayerScript : MonoBehaviour
     [FMODUnity.EventRef]
     public string SurfEvent = "";
 
+    [FMODUnity.EventRef]
+    public string LandEvent = "";
+
+
     FMOD.Studio.EventInstance hurtInstance;
     FMOD.Studio.EventInstance surfInstance;
-
+    FMOD.Studio.EventInstance landInstance;
 
     private Vector3 speed;
     private Vector3 lastPosition;
+
+    private bool isGameOver;
+
+    private bool inAirLastFrame = false;
 
     private void Start()
     {
         health = new HealthSystem();
         health.health = 100;
-        score = new ScoreSystem();
+        score = this.gameObject.AddComponent<ScoreSystem>();
         inAir = false;
         cart = GetComponentInParent<Cart>();
         cam = cameraObject.GetComponent<Camera>();
         dead = false;
         hurtInstance = FMODUnity.RuntimeManager.CreateInstance(HurtEvent);
         surfInstance = FMODUnity.RuntimeManager.CreateInstance(SurfEvent);
+        landInstance = FMODUnity.RuntimeManager.CreateInstance(LandEvent);
         surfInstance.start();
     }
 
@@ -81,14 +90,28 @@ public class PlayerScript : MonoBehaviour
             Movement();
         }
 
+        if(inAirLastFrame)
+        {
+            landInstance.start();
+            inAirLastFrame = false;
+        }
         if (inAir)
         {
             Air();
+            surfInstance.setParameterByName("Ground.Air", 1.0f);
+        }
+        else
+        {
+            surfInstance.setParameterByName("Ground.Air", 0.0f);
         }
         
         if(health.health <= 0)
         {
-            gameManager.GameOver();
+            if (!isGameOver)
+            {
+                gameManager.GameOver();
+                isGameOver = true;
+            }
         }
 
         if (scoreCounter >= 1.0f)
@@ -106,7 +129,7 @@ public class PlayerScript : MonoBehaviour
     public void Death()
     {
         dead = true;
-        surfInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        surfInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
     }
 
@@ -147,7 +170,9 @@ public class PlayerScript : MonoBehaviour
         transform.localPosition = currentPosition;
 
         speed = transform.position - lastPosition;
-        speedMag = speed.magnitude;
+        speedMag = speed.magnitude / 1.4f;
+
+        surfInstance.setParameterByName("Speed", speedMag);
 
 
         lastPosition = transform.position;
@@ -188,6 +213,7 @@ public class PlayerScript : MonoBehaviour
         if(transform.localPosition.y <= 0.0f)
         {
             inAir = false;
+            inAirLastFrame = true;
         }
     }
 

@@ -8,12 +8,14 @@ public class TileManager : MonoBehaviour
     public PlayerScript player;
     private Pooler pooler;
     public EnemyManager enemyManager;
+    public ParticleSystem snow;
 
     // doesnt exist until we spawn first wave of tiles
     private Tile lastSpawnedTile = null;
 
     // pooler stuff
-    public List<string> tileTags;
+    public List<string> mountainTileTags;
+    public List<string> hellTileTags;
     public List<string> obstacleTags;
     public List<string> rampTags;
     public List<Tile> activeTiles;
@@ -22,7 +24,9 @@ public class TileManager : MonoBehaviour
    public  int highestActiveTile = -1;
     private Vector3 initialPosition;
 
+    public float hellTimer = 30.0f;
 
+    public bool inHell;
     public void Awake() {
         initialPosition = transform.position;
         pooler = GetComponent<Pooler>();
@@ -51,11 +55,33 @@ public class TileManager : MonoBehaviour
             GenTiles(1);
         }
 
+        if (hellTimer > 0.0f)
+        {
+            inHell = false;
+            hellTimer -= Time.deltaTime;
+        }
+        else
+        {
+            inHell = true;
+            snow.Stop();
+            
+        }
+
     }
 
 
     public void GenTiles(int numToGen)
     {
+        List<string> tileTags;
+        if (inHell)
+        {
+            tileTags = hellTileTags;
+        }
+        else
+        {
+            tileTags = mountainTileTags;
+        }
+        
         if(enemyManager == null)
         {
             enemyManager = GetComponent<EnemyManager>();
@@ -107,6 +133,7 @@ public class TileManager : MonoBehaviour
                 Obstacle obstacle = go.GetComponent<Obstacle>();
                 go.SetActive(true);
                 go.transform.position = trans.position + obstacle.offset;
+                go.transform.localEulerAngles += new Vector3(0.0f, Random.Range(-180.0f, 180.0f), 0.0f);
 
             }
         }

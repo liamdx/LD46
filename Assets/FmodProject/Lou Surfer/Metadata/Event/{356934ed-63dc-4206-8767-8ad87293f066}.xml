@@ -216,6 +216,7 @@
 	</object>
 	<object class="MixerBusEffectChain" id="{9bf24a47-a1a2-410c-964c-e746d7865962}">
 		<relationship name="effects">
+			<destination>{dfbb6333-694e-45f2-900c-d47e12e16eac}</destination>
 			<destination>{75f8f732-98b6-4381-aea7-55ab05cdaadc}</destination>
 		</relationship>
 	</object>
@@ -319,6 +320,14 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{5c0c214f-f527-4f2c-a5ac-47c1f1b0e65f}" />
+	<object class="CompressorEffect" id="{dfbb6333-694e-45f2-900c-d47e12e16eac}">
+		<property name="threshold">
+			<value>-47</value>
+		</property>
+		<property name="gain">
+			<value>22.5</value>
+		</property>
+	</object>
 	<object class="MixerBusFader" id="{75f8f732-98b6-4381-aea7-55ab05cdaadc}" />
 	<object class="AutomationPoint" id="{e7f55941-f24f-417e-8ebf-4fc50ea8e058}">
 		<property name="position">
@@ -419,13 +428,13 @@
 	</object>
 	<object class="AutomationPoint" id="{99a70dd4-f7bb-4667-ab29-b8088666bf2a}">
 		<property name="position">
-			<value>0.47999999999999998</value>
+			<value>0.215</value>
 		</property>
 		<property name="value">
 			<value>1</value>
 		</property>
 		<property name="curveShape">
-			<value>0.25471893</value>
+			<value>-1.00000048</value>
 		</property>
 	</object>
 	<object class="AutomationPoint" id="{9443f517-5d1d-4cc6-8293-4981362d4ee3}">

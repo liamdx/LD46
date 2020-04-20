@@ -11,12 +11,15 @@ public class GameManager : MonoBehaviour
     public PlayerScript player;
     public EnemyManager enemyManager;
     public UIManager uiManager;
+    public Cart cart;
 
     [FMODUnity.EventRef]
     public string MusicEvent = "";
     [FMODUnity.EventRef]
     public string GameOverEvent = "";
 
+
+    float airThing;
 
     FMOD.Studio.EventInstance music;
     public FMOD.Studio.EventInstance gameOver;
@@ -29,7 +32,28 @@ public class GameManager : MonoBehaviour
         tileManager = GetComponent<TileManager>();
         enemyManager = GetComponent<EnemyManager>();
         uiManager = GetComponent<UIManager>();
+        airThing = 1.0f;
 
+    }
+
+    public void LateUpdate()
+    {
+        if(player.inAir)
+        {
+            airThing -= Time.deltaTime * 3.0f;
+            if(airThing < 0.0f) { airThing = 0.0f; }
+            music.setParameterByName("Air", airThing);
+        }
+        else
+        {
+            airThing += Time.deltaTime * 3.0f;
+            if (airThing > 1.0f) { airThing = 1.0f; }
+            music.setParameterByName("Air", airThing);
+        }
+        if(tileManager.inHell)
+        {
+            music.setParameterByName("Snow.Hell", 1.0f);
+        }
     }
 
     public void Start()
@@ -46,11 +70,11 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         // FMODUnity.RuntimeManager.MuteAllEvents(true);
-        music.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-        gameOver.start();
-        Debug.Log("Game Over");
+        music.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         player.Death();
+        gameOver.start();
         uiManager.Die();
+        cart.speed = 0.0f;
     }
 
 }

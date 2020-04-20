@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   intensity:
     m_OverrideState: 1
-    m_Value: -0.2
+    m_Value: -0.105
     min: -1
     max: 1
   xMultiplier:
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccf1aba9553839d41ae37dd52e9ebcce, type: 3}
   m_Name: MotionBlur
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 0
@@ -112,12 +112,12 @@ MonoBehaviour:
     m_Value: 2
   intensity:
     m_OverrideState: 1
-    m_Value: 0.588
+    m_Value: 1
     min: 0
     max: 1
   clamp:
-    m_OverrideState: 1
-    m_Value: 0.05
+    m_OverrideState: 0
+    m_Value: 0.027
     min: 0
     max: 0.2
 --- !u!114 &5776419085892709789

@@ -11,6 +11,8 @@ public class Skeleton : Enemy
 
     public GameObject skeletonObject;
 
+    public ParticleSystem deathEffect;
+
     public Animator anim;
 
     public float attackDistance = 3.0f;
@@ -57,6 +59,8 @@ public class Skeleton : Enemy
     }
     public override void Death()
     {
+        deathEffect.gameObject.transform.parent = null;
+        deathEffect.Play();
         isDead = true;
         // do something
         deathInstance.start();
@@ -79,6 +83,11 @@ public class Skeleton : Enemy
     public void Hurt(int amount)
     {
         hurtInstance.start();
+        health.health -= amount;
+    }
+
+    public void HurtNoSound(int amount)
+    {
         health.health -= amount;
     }
 

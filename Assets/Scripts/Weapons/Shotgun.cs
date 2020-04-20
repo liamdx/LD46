@@ -82,30 +82,39 @@ public class Shotgun : MonoBehaviour
             // Vector3 origin, float radius, Vector3 direction, out RaycastHit hitInfo, float maxDistance, int layerMask
             RaycastHit[] hits = Physics.SphereCastAll(p1, 3.0f, player.cameraObject.transform.forward, 100000);
 
+            bool hitEnemy = false;
+            bool hitObstacle = false;
             foreach (RaycastHit hit in hits)
             {
 
                 if (hit.collider.gameObject.CompareTag("Obstacle"))
                 {
-                    // do obstacle
-                    Obstacle o = hit.collider.gameObject.GetComponent<Obstacle>();
-                    Debug.DrawRay(player.cameraObject.transform.position, player.cameraObject.transform.TransformDirection(Vector3.forward), Color.red, 2.0f);
-
-                    if (o != null)
+                    if (!hitObstacle)
                     {
-                        o.DoDestroy();
-                    }
+                        // do obstacle
+                        Obstacle o = hit.collider.gameObject.GetComponent<Obstacle>();
+                        Debug.DrawRay(player.cameraObject.transform.position, player.cameraObject.transform.TransformDirection(Vector3.forward), Color.red, 2.0f);
 
+                        if (o != null)
+                        {
+                            o.DoDestroy();
+                            hitObstacle = true;
+                        }
+                    }
                     
                 }
 
                 if (hit.collider.gameObject.CompareTag("Enemy"))
                 {
-                    // do enemy
-                    Skeleton e = hit.collider.gameObject.GetComponent<Skeleton>();
-                    if (e != null)
+                    if (!hitEnemy)
                     {
-                        e.Hurt(60);
+                        // do enemy
+                        Skeleton e = hit.collider.gameObject.GetComponent<Skeleton>();
+                        if (e != null)
+                        {
+                            e.Hurt(60);
+                            hitEnemy = true;
+                        }
                     }
                     
                 }

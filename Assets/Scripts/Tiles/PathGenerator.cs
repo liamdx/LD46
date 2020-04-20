@@ -53,7 +53,7 @@ public class PathGenerator : MonoBehaviour
             Tile t = tileManager.activeTiles[i];
 
             // watch this <= may need to be simply <
-            if(t.index <= player.currentTileIndex)
+            if(t.index < player.currentTileIndex)
             {
                 continue;
             }
@@ -102,6 +102,12 @@ public class PathGenerator : MonoBehaviour
             {
                 indicesToRemove.Add(i);
             }
+
+            else if(uniques[i].z < player.transform.position.z)
+            {
+                indicesToRemove.Add(i);
+            }
+
             lastPoint = uniques[i];
         }
 
