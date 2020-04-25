@@ -1628,7 +1628,7 @@ MonoBehaviour:
   scythe: {fileID: 8296172667405842577}
   kickback: {fileID: 3192481248929868305}
   cameraObject: {fileID: 302649710}
-  cart: {fileID: 0}
+  cart: {fileID: 1536484504}
   shotgunws: {fileID: 3192481248929868303}
   scythews: {fileID: 8296172667405842575}
   surfboardws: {fileID: 2077657475}
@@ -3351,11 +3351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd64368036eb92469264e0772de1624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tileManager: {fileID: 0}
-  pathGenerator: {fileID: 0}
+  tileManager: {fileID: 1801741681}
+  pathGenerator: {fileID: 1801741685}
   player: {fileID: 1165485257}
-  enemyManager: {fileID: 0}
-  uiManager: {fileID: 0}
+  enemyManager: {fileID: 1801741686}
+  uiManager: {fileID: 1801741687}
   cart: {fileID: 1536484504}
   MusicEvent: event:/MainMusic
   GameOverEvent: event:/GameOverScoreScreen
@@ -3372,9 +3372,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numPathPoints: 20
-  tileManager: {fileID: 0}
+  tileManager: {fileID: 1801741681}
   cart: {fileID: 1536484504}
-  gameManager: {fileID: 0}
+  gameManager: {fileID: 1801741684}
   error: 0.5
 --- !u!114 &1801741686
 MonoBehaviour:
